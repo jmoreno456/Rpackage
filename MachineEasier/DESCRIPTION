@@ -1,0 +1,16 @@
+Package: MachineEasier
+Type: Package
+Title: Make Modeling Easier (Predictive Modeling Toolkit)
+Version: 0.1.0
+Authors@R: person("Jesse", "Moreno", email = "j.mdnd11@gmail.com", role = c("aut", "cre"))
+Description: This package simplifies the process of data cleaning, model building, training, and evaluation for predictive machine learning tasks in R.
+License: CC0
+Encoding: UTF-8
+LazyData: false
+Imports:
+  dplyr, 
+  tidyr, 
+  ggplot2, 
+  caret, 
+  tidymodels
+RoxygenNote: 7.3.2

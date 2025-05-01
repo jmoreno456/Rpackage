@@ -1,0 +1,87 @@
+---
+title: "Machine Learning with MachineEasier"
+Author: "Jesse Moreno"
+output: html_document
+date: "2025-04-09"
+---
+
+# Description
+In this markdown file you will be able to perform ML
+tools on any dataset of your choosing.
+You will load the necessary package "MachineEasier." With this package you will be to use tools such as predictive modeling kits. This includes cleaning, building, training, and evaluating your ML models. The easy to use functions will include
+- Data cleaning
+- Data splitting
+- Model training
+- Model evaluation
+- Visualization of predictions
+
+
+```{r setup, include=FALSE}
+# Add your library below.
+# install.packages("MachineEasier")
+# Library(MachineEasier)
+
+```
+
+
+# Load your dataset. I will post an example down below but you can choose any dataset you want
+
+
+```{r, "step 1"}
+# data(mtcars)
+
+
+```
+
+
+# Clean your data. use function clean_data() from the package "Machine Easier"
+
+
+```{r, "step 2"}
+# head(mtcars)
+# new_mtcars <- clean_data(mtcars, remove_na = TRUE)
+
+
+```
+
+
+# split data into training and test sets.
+use function split_data(). make sure data is 80% training and 20% testing. think of your target variable. then create the function and split your data.
+
+
+```{r, "step 3"}
+# splits <- split_data(new_mtcars, target = "mpg", prop = 0.8)
+# train_data <- splits$train
+# test_data <- splits$test
+
+```
+
+
+# train the model. you can use various methods of your choosing ("lm", "rf", "svm" and many more). all of these are available through the machine easier package as the function train_model()
+
+
+```{r, "step 4"}
+# model <- train_model(train_data, target = "mpg", method = "rf")
+
+
+```
+
+
+# evaluate the model. with the function evaluate_model(), you will be able to see the result of RMSE, and R^2. These are great for seeing if your model works and is great for use. 
+# use summary for further evaluations 
+
+
+```{r, "step 5"}
+# evaluation <- evaluate_model(model, test_data, targte = "mpg")
+# print(evaluation)
+
+```
+
+
+# visualize the model. we will be able to see the differences between the actual vs the predicted values with the function plot_predictions()
+
+
+```{r, "step 5"}
+# plot_predictions(model, test_data, target = "mpg")
+
+```
