@@ -1,12 +1,12 @@
 Package: MachineEasier
 Type: Package
-Title: Make Modeling Easier (Predictive Modeling Toolkit)
+Title: Simplify Predictive Modeling Tasks
 Version: 0.1.0
 Authors@R: person("Jesse", "Moreno", email = "j.mdnd11@gmail.com", role = c("aut", "cre"))
-Description: This package simplifies the process of data cleaning, model building, training, and evaluation for predictive machine learning tasks in R.
+Description: This package simplifies the process of data cleaning, model building, training, and evaluation for predictive machine learning tasks in R. It provides a streamlined interface for common tasks like data preparation, model training, evaluation, and visualization, enabling users to perform these tasks with minimal code. By integrating popular R packages like `tidymodels`, `caret`, and `parsnip`, it reduces the complexity and number of function calls required to perform predictive modeling, making machine learning more accessible and easier to use.
 License: CC0
 Encoding: UTF-8
-LazyData: false
+LazyData: true
 Imports:
   dplyr, 
   tidyr, 
@@ -14,5 +14,10 @@ Imports:
   caret, 
   tidymodels,
   rsample,
-  parsnip
+  parsnip,
+  ranger,
+  e1071
 RoxygenNote: 7.3.2
+Suggests: 
+  testthat (>= 3.0.0)
+Config/testthat/edition: 3
