@@ -1,32 +1,25 @@
-#' Split Data into Training and Testing Sets
+#' Split the dataset into training and testing sets
 #'
-#' This function splits a data frame into training and testing sets, with an option to specify the proportion of data to use for training.
-#' The splitting ensures that the target variable is used for stratification if it is a factor or character column.
+#' This function splits the dataset into training and testing sets. The split is stratified based on the target variable.
+#' It uses the updated `select()` function to avoid deprecation issues.
 #'
-#' @param data A data frame.
-#' @param target The name of the target variable as a string.
-#' @param prop Proportion of the data to be used for the training set (default is 0.8).
+#' @param data A data frame containing the dataset.
+#' @param target A string representing the name of the target (outcome) variable.
+#' @param test_size A numeric value between 0 and 1 indicating the proportion of data to be used for testing (default is 0.2).
 #'
-#' @return A list containing the training and testing data frames.
+#' @return A list containing two data frames: `train` and `test`.
 #' @export
-#'
-#' @examples
-#' split <- split_data(mtcars, "mpg")
-#' train <- split$train
-#' test <- split$test
-
-split_data <- function(data, target, prop = 0.8) {
+split_data <- function(data, target, test_size = 0.2) {
+  # Ensure target is a valid column
   if (!(target %in% colnames(data))) {
-    stop("Target column not found in the data.")
+    stop("Target variable not found in the dataset.")
   }
 
-  if (!is.factor(data[[target]]) && !is.character(data[[target]])) {
-    stop("Target column must be a factor or character vector.")
-  }
+  # Update select() to use all_of() to avoid deprecated behavior
+  data_split <- rsample::initial_split(data, prop = 1 - test_size, strata = dplyr::all_of(target))
 
-  split <- initial_split(data, prop = prop, strata = target)
-  list(
-    train = training(split),
-    test = testing(split)
-  )
+  train_data <- rsample::training(data_split)
+  test_data <- rsample::testing(data_split)
+
+  return(list(train = train_data, test = test_data))
 }
