@@ -1,25 +1,27 @@
-#' Train a Predictive Model
+#' Train a Predictive Model with Cross-validation
 #'
 #' @param data A data frame with training data.
 #' @param target The target variable string.
 #' @param method The model method ("lm", "rf", "svm")
+#' @param cv_folds The number of folds for cross-validation (default is 5).
 #' @return A trained model object.
-#' @importFrom parsnip linear_reg rand_forest svm_rbf set_engine fit
-#'
+#' @importFrom e1071 svm
+#' @importFrom rsample vfold_cv
+#' @importFrom parsnip fit
 #' @export
 
-train_model <- function(data, target, method = "lm") {
-  # ensure data is a data frame
+train_model <- function(data, target, method = "lm", cv_folds = 5) {
+  # Ensure data is a data frame
   if (!is.data.frame(data)) {
     stop("The input data must be a data frame.")
   }
 
-  # ensure target exists in the data
+  # Ensure target exists in the data
   if (!target %in% colnames(data)) {
     stop("The target variable does not exist in the data.")
   }
 
-  # ensure method is one of "lm", "rf", or "svm"
+  # Ensure method is one of "lm", "rf", or "svm"
   if (!(method %in% c("lm", "rf", "svm"))) {
     stop("Invalid method. Choose one of 'lm', 'rf', or 'svm'.")
   }
@@ -27,19 +29,16 @@ train_model <- function(data, target, method = "lm") {
   # Create the formula for model fitting
   formula <- as.formula(paste(target, "~ ."))
 
-  # Train the model based on the chosen method using tidymodels
+  # Define resampling method
+  resamples <- vfold_cv(data, v = cv_folds)
+
+  # Train the model based on the chosen method
   if (method == "lm") {
-    model <- linear_reg() %>%
-      set_engine("lm") %>%
-      fit(formula, data = data)
+    model <- fit(formula, data = data, method = "lm")
   } else if (method == "rf") {
-    model <- rand_forest() %>%
-      set_engine("randomForest") %>%
-      fit(formula, data = data)
+    model <- fit(formula, data = data, method = "rf")
   } else if (method == "svm") {
-    model <- svm_rbf() %>%
-      set_engine("e1071") %>%
-      fit(formula, data = data)
+    model <- svm(formula, data = data)
   }
 
   return(model)
