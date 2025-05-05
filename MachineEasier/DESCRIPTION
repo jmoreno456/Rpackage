@@ -12,5 +12,7 @@ Imports:
   tidyr, 
   ggplot2, 
   caret, 
-  tidymodels
+  tidymodels,
+  rsample,
+  parsnip
 RoxygenNote: 7.3.2
