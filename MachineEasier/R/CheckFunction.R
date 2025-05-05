@@ -3,10 +3,10 @@
 #' @export
 check_functions <- function() {
   # List of functions to check
-  required_functions <- c("split_data", "train_model", "evaluate_model", "plot_predictions")
+  required_functions <- c("split_data", "train_model", "evaluate_model", "plot_predictions", "clean_data")
 
   # Check if each function is available
-  missing_functions <- setdiff(required_functions, ls(getNamespace("MachineEasier)))
+  missing_functions <- setdiff(required_functions, ls("package:MachineEasier"))
 
   if (length(missing_functions) == 0) {
     message("All functions are loaded correctly.")
