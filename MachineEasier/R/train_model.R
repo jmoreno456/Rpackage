@@ -4,7 +4,8 @@
 #' @param target The target variable string.
 #' @param method The model method ("lm", "rf", "svm")
 #' @return A trained model object.
-#' @importFrom e1071 svm
+#' @importFrom parsnip linear_reg rand_forest svm_rbf set_engine fit
+#'
 #' @export
 
 train_model <- function(data, target, method = "lm") {
@@ -26,13 +27,19 @@ train_model <- function(data, target, method = "lm") {
   # Create the formula for model fitting
   formula <- as.formula(paste(target, "~ ."))
 
-  # Train the model based on the chosen method
+  # Train the model based on the chosen method using tidymodels
   if (method == "lm") {
-    model <- lm(formula, data = data)
+    model <- linear_reg() %>%
+      set_engine("lm") %>%
+      fit(formula, data = data)
   } else if (method == "rf") {
-    model <- randomForest::randomForest(formula, data = data)
+    model <- rand_forest() %>%
+      set_engine("randomForest") %>%
+      fit(formula, data = data)
   } else if (method == "svm") {
-    model <- svm(formula, data = data)
+    model <- svm_rbf() %>%
+      set_engine("e1071") %>%
+      fit(formula, data = data)
   }
 
   return(model)
