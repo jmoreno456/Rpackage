@@ -10,7 +10,6 @@
 #' @return A ggplot object.
 #' @importFrom ggplot2 ggplot aes geom_point geom_smooth labs theme_minimal
 #' @export
-
 plot_predictions <- function(model, data, target,
                              point_color = "black",
                              point_size = 2,
